@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  gather_facts: 0
+  tasks:
+  - name: "Checking status of Shell command"
+    shell: "date; uname -a"
+    register: output
+
+  - debug: var=output.stdout
+...

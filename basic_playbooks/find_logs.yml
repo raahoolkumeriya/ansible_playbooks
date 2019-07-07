@@ -1,0 +1,17 @@
+---
+- hosts: "{{ servername }}"
+  gather_facts: 0
+  remote_user: "{{ remoteUSER }}"
+  tasks:
+  - name: You are finding "{{ file }}" from "{{ dir }}"
+    shell: find {{ dir }} -type f -name \*{{ file }}\* -ls
+    register: output__logs__
+    ignore_errors: yes
+
+  -
+    debug: var=output__logs__.stderr_lines
+    when: output__logs__.stderr != ''
+
+  -
+    debug: var=output__logs__.stdout_lines
+    when: output__logs__.stdout != ''
